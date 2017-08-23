@@ -63,7 +63,7 @@ var MyForm = {
 	setData: function(obj) {
 		for (name in obj) {
 			var field = document.querySelector('[name=' + name + ']');
-			field.value = obj[name];
+			if (field) { field.value = obj[name]; }
 		}
 	},
 
