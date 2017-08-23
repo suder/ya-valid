@@ -23,13 +23,13 @@ var MyForm = {
 			if (!this.validPhone(phone)) {
 				errFields.push('phone');
 			}
-			response['errorFields'] = errFields;
+			response.errorFields = errFields;
 			this.setErrorClass(errFields);
 			if (errFields.length > 0) {
-				response['isValid'] = false;
+				response.isValid = false;
 				return response;
 			} else {
-				response['isValid'] = true;
+				response.isValid = true;
 				return response;
 			}
 		},
@@ -121,7 +121,7 @@ var MyForm = {
 		 */
 		setErrorClass: function(fields) {
 			var allFields = this.values;
-			allFields.forEach(function(el, i, arr) {
+			allFields.forEach(function(elem, i, arr) {
 				var el = document.querySelector('[name=' + allFields[i] + ']');
 				if (fields.indexOf(allFields[i]) == -1) {
 					el.classList.remove("error");
@@ -169,7 +169,7 @@ var MyForm = {
 			return true;
 		},
 		intervalId: 0
-	}
+	};
 	/* Клик по #submitButton */
 var btn = document.getElementById('submitButton');
 btn.addEventListener('click', function(e) {
