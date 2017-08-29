@@ -67,7 +67,7 @@ var MyForm = {
 		 *
 		 */
 		submit: function() {
-			var processValidation = this.validate();
+			var processValidation = this.validate(), _that = this;
 			if (processValidation.isValid) {
 				var data = this.getData(),
 					resultContainer = document.getElementById('resultContainer');
@@ -85,21 +85,21 @@ var MyForm = {
 					return response.json();
 				}).then(function(res) {
 					if (res.status == 'success') {
-						clearTimeout(MyForm.intervalId);
+						clearTimeout(_that.intervalId);
 						resultContainer.innerHTML = 'Success';
 						resultContainer.classList.add("success");
 						btn.disabled = false;
 					} else if (res.status == 'error') {
-						clearTimeout(MyForm.intervalId);
+						clearTimeout(_that.intervalId);
 						resultContainer.innerHTML = res.reason;
 						resultContainer.classList.add("error");
 						btn.disabled = false;
 					} else if (res.status == 'progress') {
 						var timer;
 						timer = setInterval(function() {
-							MyForm.submit();
+							_that.submit();
 						}, res.timeout);
-						MyForm.intervalId = timer;
+						_that.intervalId = timer;
 						while (timer--) {
 							clearTimeout(timer);
 						}
@@ -107,7 +107,7 @@ var MyForm = {
 					}
 					return false;
 				}).catch(function(data) {
-					clearTimeout(MyForm.intervalId);
+					clearTimeout(_that.intervalId);
 					resultContainer.innerHTML = 'Не удалось отправить данные';
 					resultContainer.classList.add("error");
 					btn.disabled = false;
